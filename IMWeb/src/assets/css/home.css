@@ -1,0 +1,148 @@
+.main_home {
+    width: 1000px;
+    height: 705px;
+    margin: 100px auto;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ivu-layout,
+.ivu-layout-sider,
+.ivu-layout-content {
+    height: 100%;
+}
+
+.ivu-layout-header {
+    border-bottom: 1px solid red;
+    height: 60px;
+    line-height: 60px;
+    padding: 0;
+    background: #87CEFA;
+    padding: 0 10px;
+}
+
+.ivu-layout-sider {
+    border-right: 1px solid red;
+    background: #CAE1FF;
+}
+
+.ivu-layout-header,
+.ivu-layout,
+.ivu-layout-sider {
+    background: transparent;
+}
+
+.user_info img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.recent_user {
+    height: 640px;
+    overflow: auto;
+}
+
+.recent_user .recent_user_item {
+    /* border-bottom: 1px solid red; */
+    height: 49px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.recent_user .recent_user_item .recent_user_name {
+    overflow: hidden;
+}
+
+.recent_user .recent_user_item .recent_user_name .time {
+    float: right;
+}
+
+.recent_user .recent_user_item .recent_user_info {
+    width: 180px;
+    font-size: 12px;
+}
+
+.recent_user .recent_user_item img {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+.badge_a {
+    min-width: 15px;
+    height: 15px;
+    line-height: 13px;
+    padding: 0;
+}
+
+.header_tabs {
+    font-size: 40px;
+}
+
+.content {
+    height: 450px;
+    padding: 10px;
+    border-bottom: 1px solid red;
+}
+
+textarea {
+    resize: none;
+    background: transparent;
+    outline: none;
+}
+
+.ivu-input {
+    background: transparent;
+    color: #fff;
+    border: none;
+}
+
+.ivu-input:focus {
+    box-shadow: none;
+}
+
+
+/*滚动条整体部分,必须要设置*/
+
+ ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+}
+
+
+/*滚动条的轨道*/
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .3);
+    background-color: transparent;
+}
+
+
+/*滚动条的滑块按钮*/
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    width: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 5px #000;
+}
+
+
+/*滚动条的上下两端的按钮*/
+
+::-webkit-scrollbar-button {
+    height: 10px;
+    background-color: transparent;
+}

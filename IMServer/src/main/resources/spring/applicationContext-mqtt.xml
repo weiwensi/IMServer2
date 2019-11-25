@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mqttClientConfig" class="com.gysoft.emqtt.bean.MqttClientConfig">
+        <property name="username" value="${mqtt.userName}"/>
+        <property name="password" value="${mqtt.password}"/>
+        <property name="willTopic" value="${mqtt.willTopic}"/>
+        <property name="willPayload" value="${mqtt.willPayload}"/>
+        <property name="brokerAddress" value="${mqtt.brokerAddress}"/>
+        <property name="automaticReconnection" value="${mqtt.automaticReconnection}"/>
+        <property name="timeOut" value="${mqtt.connectionTimeout}"/>
+        <property name="keepAliveInterval" value="${mqtt.keepAliveInterval}"/>
+        <property name="clientIdPrefix" value="${mqtt.clientId.prefix}"/>
+        <property name="maxReconnTimes" value="${mqtt.maxReconnTimes}"/>
+        <property name="reconnInterval" value="${mqtt.reconnInterval}"/>
+    </bean>
+
+    <bean id="emqServerConfig" class="com.gysoft.emq.bean.EmqServerConfig">
+        <property name="username" value="${emq.server.username}"/>
+        <property name="password" value="${emq.server.password}"/>
+        <property name="brokerPrefixUrl" value="${emq.server.prefixUrl}"/>
+    </bean>
+
+    <bean id="gyMqttClientPoolPublisher" class="com.gysoft.emqtt.service.GyMqttClientPoolPublisher">
+        <constructor-arg ref="gyMqttClientService"/>
+        <constructor-arg ref="mqttClientConfig"/>
+        <constructor-arg value="5"/>
+    </bean>
+
+    <bean id="gyMqttClientService" class="com.gysoft.emq.service.GyMqttClientService">
+        <constructor-arg ref="emqServerConfig"/>
+    </bean>
+</beans>

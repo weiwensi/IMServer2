@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd"
+>
+    <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <mvc:annotation-driven/>
+
+    <!-- 让Spring通过自动扫描来查询和管理Bean -->
+    <context:component-scan base-package="com.gysoft" use-default-filters="false">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <bean id="jsonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 还需要在spring-mvc.xml中添加映射静态的配置 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- Enables swgger ui -->
+    <mvc:resources mapping="swagger-ui.html**" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+    <!-- 	<mvc:interceptors>  -->
+    <!--session登录验证拦截器 -->
+    <!-- 		<mvc:interceptor> -->
+    <!-- 			<mvc:mapping path="/rs/**"/> -->
+    <!-- 	        <bean class="com.banxinsoft.ppp.core.interceptor.SessionTimeOutInterceptor"></bean> -->
+    <!--         </mvc:interceptor> -->
+    <!--     </mvc:interceptors> -->
+
+    <!-- rest文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="104857600"/>
+        <property name="maxInMemorySize" value="4096"/>
+    </bean>
+
+</beans>

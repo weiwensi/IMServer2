@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 扫描类包，将标注Spring注解的类自动转化Bean，同时完成Bean的注入 -->
+
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.gysoft"/>
+
+    <aop:aspectj-autoproxy/>
+
+    <!-- 获取spring的bean对象 -->
+    <bean class="com.gysoft.utils.util.spring.SpringApplicationContext"/>
+
+    <!-- 使用disconf必须添加以下配置 -->
+    <bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+          destroy-method="destroy">
+        <property name="scanPackage" value="com.gysoft"/>
+    </bean>
+    <bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+          init-method="init" destroy-method="destroy">
+    </bean>
+
+    <!-- 使用托管方式的disconf配置(无代码侵入, 配置更改会自动reload) -->
+    <bean id="configproperties_disconf"
+          class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:/mqtt.properties</value>
+                <value>classpath:/rabbitmq-config.properties</value>
+                <value>classpath:/mysql.properties</value>
+                <value>classpath:/inbox.properties</value>
+                <value>classpath:/user_acl_template.json</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="propertyConfigurer"
+          class="com.baidu.disconf.client.addons.properties.ReloadingPropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="propertiesArray">
+            <list>
+                <ref bean="configproperties_disconf"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
